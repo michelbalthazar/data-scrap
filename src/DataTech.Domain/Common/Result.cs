@@ -4,6 +4,8 @@ namespace DataTech.Domain.Common
 {
     public enum ResultStatusCode
     {
+        Duplicated = 10,
+        Unauthorized = 9,
         UnprocessableEntity = 8,
         InvalidPage = 7,
         Unavailable = 6,
