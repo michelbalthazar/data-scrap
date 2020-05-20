@@ -1,9 +1,11 @@
-﻿namespace DataTech.Domain.Models
+﻿using System.Collections.Generic;
+
+namespace DataTech.Domain.Models
 {
     public class GitHubInItem
     {
-        public string Language { get; set; }
-        public string Location { get; set; }
+        public List<string> Language { get; set; }
+        public List<string> Location { get; set; }
         public int Repository { get; set; }
         public int Followers { get; set; }
     }

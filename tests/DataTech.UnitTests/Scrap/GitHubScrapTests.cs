@@ -1,9 +1,11 @@
 ﻿using DataTech.Domain.Common;
 using DataTech.Domain.Models;
 using DataTech.Infrastructure.Scrap;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -28,13 +30,26 @@ namespace DataTech.UnitTests.Scrap
             var mockHttp = _testHelper.CreateMockHttp(HttpMethod.Get, htmlReadScrapValid, System.Net.HttpStatusCode.OK);
             var githubScrap = new GitHubScrap(mockHttp);
 
+            var param = new GitHubInItem
+            {
+                Location = new List<string>
+                {
+                    "São Paulo",
+                },
+                Language = new List<string>
+                {
+                    "C#",
+                }
+            };
+
             // Act
-            var result = await githubScrap.Scrap(new GitHubInItem());
+            var result = await githubScrap.Scrap(param, CancellationToken.None);
 
             // Assert
             Assert.NotNull(result);
             Assert.Equal(ResultStatusCode.OK, result.Status);
-            Assert.True(result.ValueAsSuccess.User.Any());
+            Assert.True(result.ValueAsSuccess.User.Count == 10);
+            Assert.Equal("https://github.com/paulosalgado", result.ValueAsSuccess.User.Last().Url);
         }
     }
 }
