@@ -30,9 +30,9 @@ namespace DataTech.Infrastructure.Scrap
             try
             {
                 // If location not contains any value or list have one or more null values = retuns error message
-                err.Assert(param.Location != null && param.Location.Any() && param.Location.Select(e => string.IsNullOrEmpty(e) == false).All(e => e == true), "location can not be null");
+                err.Assert(param.Location != null && param.Location.Any() && param.Location.Select(e => string.IsNullOrWhiteSpace(e) == false).All(e => e == true), "location can not be null");
                 // If Language is not null it can not be contain any null value in list
-                err.Assert(param.Language == null || param.Language.Any() == false || param.Language.Select(e => string.IsNullOrEmpty(e) == false).All(e => e == true), "location can not be null");
+                err.Assert(param.Language == null || param.Language.Any() == false || param.Language.Select(e => string.IsNullOrWhiteSpace(e) == false).All(e => e == true), "language list can not have null item");
 
                 // if assert is false hasErrors is true
                 if (err.HasErrors)
