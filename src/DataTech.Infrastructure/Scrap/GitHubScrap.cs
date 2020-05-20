@@ -1,18 +1,26 @@
 ﻿using DataTech.Domain.Common;
 using DataTech.Domain.Interfaces;
 using DataTech.Domain.Models;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DataTech.Infrastructure.Scrap
 {
     public class GitHubScrap : IScrap<GitHubInItem, GitHubOutItem>
     {
-        public async Task<Result<GitHubOutItem>> Scrap(GitHubInItem param)
+        private readonly HttpClient _httpClient;
+
+        public GitHubScrap(HttpClient httpClient)
         {
-            return ResultStatusCode.OK;
+            _httpClient = httpClient ?? new HttpClient();
         }
 
-        public Result<GitHubOutItem> ReadScrap(string html)
+        public async Task<Result<GitHubOutItem>> Scrap(GitHubInItem param)
+        {
+            return ResultStatusCode.Error;
+        }
+
+        private Result<GitHubOutItem> ReadScrap(string html)
         {
             return ResultStatusCode.OK;
         }
